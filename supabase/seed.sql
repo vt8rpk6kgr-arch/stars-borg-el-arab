@@ -3,12 +3,48 @@
 -- File: supabase/seed.sql
 -- ============================================================================
 
--- Note: In production Supabase, users are created via Auth.
--- Here we populate mock profiles & records for initial testing and demonstration.
+-- 0. Insert Dummy Auth Users first to satisfy Foreign Key Constraint (profiles_id_fkey)
+insert into auth.users (
+  instance_id,
+  id,
+  aud,
+  role,
+  email,
+  encrypted_password,
+  email_confirmed_at,
+  raw_app_meta_data,
+  raw_user_meta_data,
+  created_at,
+  updated_at,
+  confirmation_token,
+  email_change,
+  email_change_token_new,
+  recovery_token
+) values
+  ('00000000-0000-0000-0000-000000000000', '11111111-1111-1111-1111-111111111111', 'authenticated', 'authenticated', 'zizo@stars.eg', '$2a$10$wE99k3jN19xM5kG7yZk3teZ0uF9r8O7Z6yQ5X4W3V2U1T0S9R8Q7P', now(), '{"provider":"email","providers":["email"]}', '{"full_name":"أحمد زيزو","nickname":"القناص","phone":"01012345678"}', now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', '22222222-2222-2222-2222-222222222222', 'authenticated', 'authenticated', 'omar@stars.eg', '$2a$10$wE99k3jN19xM5kG7yZk3teZ0uF9r8O7Z6yQ5X4W3V2U1T0S9R8Q7P', now(), '{"provider":"email","providers":["email"]}', '{"full_name":"عمر القناص","nickname":"الفهد","phone":"01212345678"}', now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', '33333333-3333-3333-3333-333333333333', 'authenticated', 'authenticated', 'trika@stars.eg', '$2a$10$wE99k3jN19xM5kG7yZk3teZ0uF9r8O7Z6yQ5X4W3V2U1T0S9R8Q7P', now(), '{"provider":"email","providers":["email"]}', '{"full_name":"محمود تريكة","nickname":"المايسترو","phone":"01112345678"}', now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', '44444444-4444-4444-4444-444444444444', 'authenticated', 'authenticated', 'shika@stars.eg', '$2a$10$wE99k3jN19xM5kG7yZk3teZ0uF9r8O7Z6yQ5X4W3V2U1T0S9R8Q7P', now(), '{"provider":"email","providers":["email"]}', '{"full_name":"كريم شيكا","nickname":"الساحر","phone":"01512345678"}', now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', '55555555-5555-5555-5555-555555555555', 'authenticated', 'authenticated', 'bono@stars.eg', '$2a$10$wE99k3jN19xM5kG7yZk3teZ0uF9r8O7Z6yQ5X4W3V2U1T0S9R8Q7P', now(), '{"provider":"email","providers":["email"]}', '{"full_name":"إسلام بونو","nickname":"السد العالي","phone":"01099887766"}', now(), now(), '', '', '', ''),
+  ('00000000-0000-0000-0000-000000000000', '66666666-6666-6666-6666-666666666666', 'authenticated', 'authenticated', 'ibrahim@stars.eg', '$2a$10$wE99k3jN19xM5kG7yZk3teZ0uF9r8O7Z6yQ5X4W3V2U1T0S9R8Q7P', now(), '{"provider":"email","providers":["email"]}', '{"full_name":"إبراهيم حسن","nickname":"مسمار النص","phone":"01299887766"}', now(), now(), '', '', '', '')
+on conflict (id) do nothing;
 
--- 1. Profiles
-insert into public.profiles (id, full_name, nickname, phone, role, position, avatar_sticker, fifa_pac, fifa_sho, fifa_pas, fifa_dri, fifa_def, fifa_phy)
-values
+-- 1. Profiles (Update/Insert with 90s FIFA Stats & Roles)
+insert into public.profiles (
+  id,
+  full_name,
+  nickname,
+  phone,
+  role,
+  position,
+  avatar_sticker,
+  fifa_pac,
+  fifa_sho,
+  fifa_pas,
+  fifa_dri,
+  fifa_def,
+  fifa_phy
+) values
   ('11111111-1111-1111-1111-111111111111', 'أحمد زيزو', 'القناص', '01012345678', 'admin', 'ATT', 'stk-1', 89, 92, 84, 88, 58, 80),
   ('22222222-2222-2222-2222-222222222222', 'عمر القناص', 'الفهد', '01212345678', 'player', 'ATT', 'stk-2', 91, 86, 78, 84, 52, 76),
   ('33333333-3333-3333-3333-333333333333', 'محمود تريكة', 'المايسترو', '01112345678', 'player', 'MID', 'stk-3', 80, 82, 90, 87, 64, 75),
@@ -17,7 +53,17 @@ values
   ('66666666-6666-6666-6666-666666666666', 'إبراهيم حسن', 'مسمار النص', '01299887766', 'player', 'DEF', 'stk-10', 78, 60, 75, 72, 88, 92)
 on conflict (id) do update set
   full_name = excluded.full_name,
-  role = excluded.role;
+  nickname = excluded.nickname,
+  phone = excluded.phone,
+  role = excluded.role,
+  position = excluded.position,
+  avatar_sticker = excluded.avatar_sticker,
+  fifa_pac = excluded.fifa_pac,
+  fifa_sho = excluded.fifa_sho,
+  fifa_pas = excluded.fifa_pas,
+  fifa_dri = excluded.fifa_dri,
+  fifa_def = excluded.fifa_def,
+  fifa_phy = excluded.fifa_phy;
 
 -- 2. Teams
 insert into public.teams (id, name, captain_id, color, badge, max_players)

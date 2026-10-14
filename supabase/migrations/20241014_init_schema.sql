@@ -350,7 +350,7 @@ as $$
 declare
   caller_role text;
 begin
-  if new.role <> old.role then
+  if auth.uid() is not null and new.role <> old.role then
     select role into caller_role from public.profiles where id = auth.uid();
     if caller_role is distinct from 'admin' then
       raise exception 'غير مسموح بتعديل الصلاحيات إلا من قبل الإدارة.';
