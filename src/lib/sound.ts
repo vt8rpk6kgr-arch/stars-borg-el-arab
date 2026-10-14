@@ -5,8 +5,14 @@ class RetroAudio {
   private enabled: boolean = false;
 
   constructor() {
-    const saved = localStorage.getItem('retro_sound_enabled');
-    this.enabled = saved === 'true';
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const saved = localStorage.getItem('retro_sound_enabled');
+        this.enabled = saved === 'true';
+      }
+    } catch {
+      this.enabled = false;
+    }
   }
 
   private initCtx() {
@@ -24,7 +30,11 @@ class RetroAudio {
 
   public toggle(): boolean {
     this.enabled = !this.enabled;
-    localStorage.setItem('retro_sound_enabled', String(this.enabled));
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('retro_sound_enabled', String(this.enabled));
+      }
+    } catch {}
     if (this.enabled) {
       this.playClick();
     }

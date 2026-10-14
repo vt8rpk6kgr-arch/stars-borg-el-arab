@@ -103,6 +103,11 @@ export const AdminDashboardPage: React.FC = () => {
         <PixelCard variant="arcade" className="p-4">
           <h3 className="font-display text-xl text-paper-cream mb-3">إجراءات سريعة للإدارة</h3>
           <div className="grid grid-cols-2 gap-2">
+            <Link to="/admin/matches" className="col-span-2">
+              <PixelButton variant="pink" size="sm" fullWidth className="text-white font-bold">
+                ⚽ إدارة المباريات والوقت والأهداف الحية (Live Match Control)
+              </PixelButton>
+            </Link>
             <Link to="/admin/bookings">
               <PixelButton variant="yellow" size="sm" fullWidth>
                 حجز يدوي / قفل ساعة

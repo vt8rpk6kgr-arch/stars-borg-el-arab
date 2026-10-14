@@ -6,7 +6,7 @@ import { PixelIcon } from '@/components/ui/PixelIcon';
 import { getPlayerPhoto } from '@/lib/photoStorage';
 
 export const StatsPage: React.FC = () => {
-  const [tab, setTab] = useState<'scorers' | 'assists' | 'mvp' | 'teams'>('scorers');
+  const [tab, setTab] = useState<'scorers' | 'assists' | 'mvp'>('scorers');
   const [viewMode, setViewMode] = useState<'cards' | 'list'>('cards');
 
   const topScorers = [
@@ -77,6 +77,145 @@ export const StatsPage: React.FC = () => {
     },
   ];
 
+  const topAssists = [
+    {
+      rank: 1,
+      id: 'p3',
+      name: 'محمود تريكة',
+      nickname: 'المايسترو',
+      team: 'أبطال الحارة',
+      value: 10,
+      position: 'MID',
+      rating: 83,
+      variant: 'gold' as const,
+      badge: '🥇 #1 ASSIST',
+      stats: { pac: 80, sho: 82, pas: 90, dri: 87, def: 64, phy: 75 },
+    },
+    {
+      rank: 2,
+      id: 'p4',
+      name: 'كريم شيكا',
+      nickname: 'الساحر',
+      team: 'نسور كينج مريوط',
+      value: 8,
+      position: 'MID',
+      rating: 81,
+      variant: 'special' as const,
+      badge: '🥈 #2 ASSIST',
+      stats: { pac: 86, sho: 84, pas: 85, dri: 92, def: 45, phy: 70 },
+    },
+    {
+      rank: 3,
+      id: 'p1',
+      name: 'أحمد زيزو',
+      nickname: 'القناص',
+      team: 'نسور كينج مريوط',
+      value: 6,
+      position: 'ATT',
+      rating: 88,
+      variant: 'gold' as const,
+      badge: '🥉 #3 ASSIST',
+      stats: { pac: 89, sho: 92, pas: 84, dri: 88, def: 58, phy: 80 },
+    },
+    {
+      rank: 4,
+      id: 'p5',
+      name: 'إبراهيم حسن',
+      nickname: 'مسمار النص',
+      team: 'دراويش بهيج',
+      value: 5,
+      position: 'DEF',
+      rating: 79,
+      variant: 'special' as const,
+      badge: '#4 ASSIST',
+      stats: { pac: 78, sho: 60, pas: 75, dri: 72, def: 88, phy: 92 },
+    },
+    {
+      rank: 5,
+      id: 'p2',
+      name: 'عمر القناص',
+      nickname: 'الفهد',
+      team: 'فهود برج العرب',
+      value: 4,
+      position: 'ATT',
+      rating: 85,
+      variant: 'gold' as const,
+      badge: '#5 ASSIST',
+      stats: { pac: 91, sho: 86, pas: 78, dri: 84, def: 52, phy: 76 },
+    },
+  ];
+
+  const topMvps = [
+    {
+      rank: 1,
+      id: 'p1',
+      name: 'أحمد زيزو',
+      nickname: 'القناص',
+      team: 'نسور كينج مريوط',
+      value: 5,
+      position: 'ATT',
+      rating: 88,
+      variant: 'gold' as const,
+      badge: '👑 KING OF MVP',
+      stats: { pac: 89, sho: 92, pas: 84, dri: 88, def: 58, phy: 80 },
+    },
+    {
+      rank: 2,
+      id: 'p2',
+      name: 'عمر القناص',
+      nickname: 'الفهد',
+      team: 'فهود برج العرب',
+      value: 4,
+      position: 'ATT',
+      rating: 85,
+      variant: 'special' as const,
+      badge: '⭐ 4x MVP',
+      stats: { pac: 91, sho: 86, pas: 78, dri: 84, def: 52, phy: 76 },
+    },
+    {
+      rank: 3,
+      id: 'p6',
+      name: 'إسلام بونو',
+      nickname: 'السد العالي',
+      team: 'نسور كينج مريوط',
+      value: 3,
+      position: 'GK',
+      rating: 84,
+      variant: 'gold' as const,
+      badge: '🧤 TOP GK MVP',
+      stats: { pac: 65, sho: 40, pas: 68, dri: 62, def: 90, phy: 88 },
+    },
+    {
+      rank: 4,
+      id: 'p3',
+      name: 'محمود تريكة',
+      nickname: 'المايسترو',
+      team: 'أبطال الحارة',
+      value: 3,
+      position: 'MID',
+      rating: 83,
+      variant: 'gold' as const,
+      badge: '⭐ 3x MVP',
+      stats: { pac: 80, sho: 82, pas: 90, dri: 87, def: 64, phy: 75 },
+    },
+    {
+      rank: 5,
+      id: 'p4',
+      name: 'كريم شيكا',
+      nickname: 'الساحر',
+      team: 'نسور كينج مريوط',
+      value: 2,
+      position: 'MID',
+      rating: 81,
+      variant: 'special' as const,
+      badge: '⭐ 2x MVP',
+      stats: { pac: 86, sho: 84, pas: 85, dri: 92, def: 45, phy: 70 },
+    },
+  ];
+
+  const currentList = tab === 'assists' ? topAssists : tab === 'mvp' ? topMvps : topScorers;
+  const unitLabel = tab === 'assists' ? 'صناعة' : tab === 'mvp' ? 'مرات MVP' : 'أهداف';
+
   return (
     <div className="space-y-6">
       <div className="border-b-[3px] border-line pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -119,30 +258,30 @@ export const StatsPage: React.FC = () => {
       <div className="flex gap-2 overflow-x-auto border-b-2 border-line">
         <button
           onClick={() => setTab('scorers')}
-          className={`px-4 py-2 font-display text-base border-b-4 ${
+          className={`px-4 py-2 font-display text-base border-b-4 transition-colors ${
             tab === 'scorers'
-              ? 'border-[#FFE500] text-[#FFE500] font-bold'
-              : 'border-transparent text-paper-cream/60'
+              ? 'border-[#FFE500] text-[#FFE500] font-bold bg-[#FFE500]/10'
+              : 'border-transparent text-paper-cream/60 hover:text-white'
           }`}
         >
           ⚽ قائمة الهدافين
         </button>
         <button
           onClick={() => setTab('assists')}
-          className={`px-4 py-2 font-display text-base border-b-4 ${
+          className={`px-4 py-2 font-display text-base border-b-4 transition-colors ${
             tab === 'assists'
-              ? 'border-[#FFE500] text-[#FFE500] font-bold'
-              : 'border-transparent text-paper-cream/60'
+              ? 'border-[#25F143] text-[#25F143] font-bold bg-[#25F143]/10'
+              : 'border-transparent text-paper-cream/60 hover:text-white'
           }`}
         >
           👟 صناع اللعب
         </button>
         <button
           onClick={() => setTab('mvp')}
-          className={`px-4 py-2 font-display text-base border-b-4 ${
+          className={`px-4 py-2 font-display text-base border-b-4 transition-colors ${
             tab === 'mvp'
-              ? 'border-[#FFE500] text-[#FFE500] font-bold'
-              : 'border-transparent text-paper-cream/60'
+              ? 'border-[#FF007F] text-[#FF007F] font-bold bg-[#FF007F]/10'
+              : 'border-transparent text-paper-cream/60 hover:text-white'
           }`}
         >
           👑 أبطال MVP
@@ -152,7 +291,7 @@ export const StatsPage: React.FC = () => {
       {/* Display: 90s FIFA Cards View */}
       {viewMode === 'cards' ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
-          {topScorers.map((player) => (
+          {currentList.map((player) => (
             <Link key={player.id} to={`/players/${player.id}`} className="w-full flex justify-center">
               <RetroFifaCard
                 name={player.name}
@@ -173,7 +312,7 @@ export const StatsPage: React.FC = () => {
       ) : (
         /* Display: Quick List View */
         <div className="space-y-2">
-          {topScorers.map((player) => (
+          {currentList.map((player) => (
             <Link key={player.id} to={`/players/${player.id}`}>
               <PixelCard
                 variant="arcade"
@@ -203,7 +342,7 @@ export const StatsPage: React.FC = () => {
                 </div>
 
                 <div className="font-pixel text-lg text-[#25F143] bg-black/60 px-3 py-1 border border-line">
-                  {player.value} {tab === 'scorers' ? 'أهداف' : 'صناعة'}
+                  {player.value} {unitLabel}
                 </div>
               </PixelCard>
             </Link>

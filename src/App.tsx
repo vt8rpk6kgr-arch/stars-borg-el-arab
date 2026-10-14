@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Layout } from './components/layout/Layout';
 import { Mascot } from './components/ui/Mascot';
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
 
 // Route-level lazy loading
 const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })));
@@ -55,38 +56,40 @@ export const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Layout>
-          <Suspense fallback={<RetroLoadingFallback />}>
-            <Routes>
-              {/* Public & Player Routes */}
-              <Route path="/" element={<HomePage />} />
-              <Route path="/book" element={<BookPage />} />
-              <Route path="/teams" element={<TeamsPage />} />
-              <Route path="/teams/:id" element={<TeamDetailPage />} />
-              <Route path="/matches" element={<MatchesPage />} />
-              <Route path="/matches/:id" element={<MatchDetailPage />} />
-              <Route path="/tournaments" element={<TournamentsPage />} />
-              <Route path="/tournaments/:id" element={<TournamentDetailPage />} />
-              <Route path="/stats" element={<StatsPage />} />
-              <Route path="/players/:id" element={<PlayerCardPage />} />
-              <Route path="/fun" element={<FunPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/me" element={<ProfilePage />} />
+          <ErrorBoundary>
+            <Suspense fallback={<RetroLoadingFallback />}>
+              <Routes>
+                {/* Public & Player Routes */}
+                <Route path="/" element={<HomePage />} />
+                <Route path="/book" element={<BookPage />} />
+                <Route path="/teams" element={<TeamsPage />} />
+                <Route path="/teams/:id" element={<TeamDetailPage />} />
+                <Route path="/matches" element={<MatchesPage />} />
+                <Route path="/matches/:id" element={<MatchDetailPage />} />
+                <Route path="/tournaments" element={<TournamentsPage />} />
+                <Route path="/tournaments/:id" element={<TournamentDetailPage />} />
+                <Route path="/stats" element={<StatsPage />} />
+                <Route path="/players/:id" element={<PlayerCardPage />} />
+                <Route path="/fun" element={<FunPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/me" element={<ProfilePage />} />
 
-              {/* Admin Routes */}
-              <Route path="/admin" element={<AdminDashboardPage />} />
-              <Route path="/admin/bookings" element={<AdminBookingsPage />} />
-              <Route path="/admin/players" element={<AdminPlayersPage />} />
-              <Route path="/admin/teams" element={<AdminTeamsPage />} />
-              <Route path="/admin/tournaments" element={<AdminTournamentsPage />} />
-              <Route path="/admin/matches" element={<AdminMatchesPage />} />
-              <Route path="/admin/content" element={<AdminContentPage />} />
-              <Route path="/admin/settings" element={<AdminSettingsPage />} />
+                {/* Admin Routes */}
+                <Route path="/admin" element={<AdminDashboardPage />} />
+                <Route path="/admin/bookings" element={<AdminBookingsPage />} />
+                <Route path="/admin/players" element={<AdminPlayersPage />} />
+                <Route path="/admin/teams" element={<AdminTeamsPage />} />
+                <Route path="/admin/tournaments" element={<AdminTournamentsPage />} />
+                <Route path="/admin/matches" element={<AdminMatchesPage />} />
+                <Route path="/admin/content" element={<AdminContentPage />} />
+                <Route path="/admin/settings" element={<AdminSettingsPage />} />
 
-              {/* 404 Route */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Suspense>
+                {/* 404 Route */}
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
         </Layout>
       </BrowserRouter>
     </QueryClientProvider>

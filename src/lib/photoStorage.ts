@@ -27,7 +27,13 @@ export const savePlayerPhoto = async (
         const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
 
         // Always save to localStorage for instantaneous offline preview
-        localStorage.setItem(`fifa_card_photo_${playerId}`, dataUrl);
+        try {
+          if (typeof window !== 'undefined' && window.localStorage) {
+            localStorage.setItem(`fifa_card_photo_${playerId}`, dataUrl);
+          }
+        } catch (e) {
+          console.warn('localStorage write failed', e);
+        }
 
         // Also upload to Supabase Storage if configured
         if (isSupabaseConfigured) {
@@ -67,6 +73,10 @@ export const savePlayerPhoto = async (
 };
 
 export const getPlayerPhoto = (playerId: string): string | null => {
-  if (typeof window === 'undefined') return null;
-  return localStorage.getItem(`fifa_card_photo_${playerId}`);
+  try {
+    if (typeof window === 'undefined' || !window.localStorage) return null;
+    return localStorage.getItem(`fifa_card_photo_${playerId}`);
+  } catch (e) {
+    return null;
+  }
 };
