@@ -43,9 +43,6 @@ export const Navbar: React.FC = () => {
     { to: '/admin', label: 'لوحة الإدارة', desc: 'إدارة الوقت والأهداف الحية', icon: 'shield', badge: 'ADMIN', highlightColor: '#FF007F' },
   ];
 
-  // Quick links visible in mobile header sub-bar
-  const mobileQuickLinks = allNavSections.slice(0, 4);
-
   return (
     <header className="sticky top-0 z-40 bg-[#090A0F]/95 border-b-[3px] border-line backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
       {/* 80s/90s Neon Ribbon (فسفوري، أورانج، بينك، أصفر، سماوي) */}
@@ -152,52 +149,17 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Sub-Header: Quick section links + MORE button */}
-      <div className="lg:hidden border-t border-white/10 bg-[#0B0C14] px-3 py-1.5 flex items-center justify-between gap-1 overflow-x-auto no-scrollbar">
-        <div className="flex items-center gap-1.5">
-          {mobileQuickLinks.map((link) => {
-            const isActive = location.pathname === link.to;
-            return (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`
-                  px-2.5 py-1 text-xs font-display border whitespace-nowrap
-                  ${
-                    isActive
-                      ? 'bg-[#25F143] text-black border-[#25F143] font-bold shadow-sm'
-                      : 'bg-black/40 text-paper-cream/80 border-white/10 hover:border-white/40'
-                  }
-                `}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Highlighted MORE button on the sub-strip */}
-        <button
-          type="button"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="flex items-center gap-1 px-2 py-1 bg-[#FF6600] text-white font-display text-xs font-bold border border-ink shadow-sm whitespace-nowrap hover:bg-[#FF7A1A]"
-        >
-          <span>باقي الأقسام</span>
-          <span className="font-pixel text-[9px]">{isMobileMenuOpen ? '▲' : '▼'}</span>
-        </button>
-      </div>
-
       {/* Mobile Expanded MORE Drawer / Dropdown */}
       {isMobileMenuOpen && (
         <div className="lg:hidden">
           {/* Backdrop overlay */}
           <div
             onClick={() => setIsMobileMenuOpen(false)}
-            className="fixed inset-0 top-[102px] bg-black/80 backdrop-blur-sm z-40 animate-fade-in"
+            className="fixed inset-0 top-[67px] bg-black/80 backdrop-blur-sm z-40 animate-fade-in"
           />
 
           {/* Expanded Drawer Container */}
-          <div className="fixed inset-x-0 top-[102px] z-50 bg-[#0A0C14] border-b-[4px] border-[#25F143] shadow-[0_15px_35px_rgba(0,0,0,0.95)] max-h-[calc(100vh-110px)] overflow-y-auto p-4 space-y-4">
+          <div className="fixed inset-x-0 top-[67px] z-50 bg-[#0A0C14] border-b-[4px] border-[#25F143] shadow-[0_15px_35px_rgba(0,0,0,0.95)] max-h-[calc(100vh-75px)] overflow-y-auto p-4 space-y-4">
             <div className="flex items-center justify-between border-b border-white/10 pb-2">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-[#25F143] animate-pulse rounded-full" />
