@@ -7,22 +7,16 @@
 
 ---
 
-## 1. الرفع على GitHub 🐙
+## 1. الرفع على GitHub 🐙 (تم بنجاح! ✅)
 
-المستودع المحلي تم تجهيزه وتثبيت أول Commit بنجاح. لرفعه على حسابك في GitHub:
+تم ربط المستودع ورفع كافة الملفات بنجاح إلى مستودعك:
+🔗 **[https://github.com/vt8rpk6kgr-arch/stars-borg-el-arab](https://github.com/vt8rpk6kgr-arch/stars-borg-el-arab)**
 
-1. قم بإنشاء مستودع جديد (New Repository) فارغ على حسابك في GitHub باسم: `stars-borg-el-arab`.
-2. شغّل الأوامر التالية في Terminal:
-
+في حال قمت بأي تعديلات مستقبلية، يمكنك إرسال التحديثات مباشرة عبر:
 ```bash
-# اربط المستودع برابط GitHub الخاص بك (استبدل USERNAME باسم حسابك):
-git remote add origin https://github.com/USERNAME/stars-borg-el-arab.git
-
-# تأكد من الفرع الرئيسي main
-git branch -M main
-
-# ارفع الكود
-git push -u origin main
+git add .
+git commit -m "تحديث جديد"
+git push
 ```
 
 ---
