@@ -1,0 +1,33 @@
+/* RTL Helpers & Logical Flow */
+
+[dir="rtl"] {
+  text-align: start;
+}
+
+/* Ensure touch targets meet minimum accessibility standard */
+button,
+a,
+input,
+select {
+  min-height: 44px;
+}
+
+/* Custom retro pixel scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pitch-night);
+  border-inline-start: 2px solid var(--ink);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pitch-green);
+  border: 2px solid var(--ink);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sun-yellow);
+}

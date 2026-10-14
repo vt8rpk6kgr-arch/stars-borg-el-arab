@@ -1,0 +1,21 @@
+@import './styles/tokens.css';
+@import './styles/pixel.css';
+@import './styles/rtl.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: var(--pitch-night);
+    color: var(--paper-cream);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: normal;
+  }
+}
